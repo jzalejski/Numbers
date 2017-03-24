@@ -51,29 +51,11 @@ namespace Numbers.Tests
         }
     }
 
-    public class ThousandConverter : EnglishNumbersConverter
-    {
-        protected override string UnitName => "thousand";
-
-        protected override string GetUnit(int value)
-        {
-            return UnitName;
-        }
-    }
-    public class MillionConverter : EnglishNumbersConverter
-    {
-        protected override string UnitName => "million";
-
-        protected override string GetUnit(int value)
-        {
-            return UnitName;
-        }
-    }
-
     public abstract class EnglishNumbersConverter
     {
         protected readonly Dictionary<int, string> Dictionary = new Dictionary<int, string>
         {
+            {0, "zero" },
             {1, "one" },
             {2, "two" },
             {3, "three"},
@@ -105,44 +87,19 @@ namespace Numbers.Tests
             var toDo = value;
             if (toDo == 0)
             {
-                resultParts.Add("zero");
-                return ReturnResult(value, resultParts);
+                resultParts.Add(Dictionary[toDo]);
+                return ReturnResult(GetUnit(toDo), resultParts);
             }
-            if (toDo > 1000000 - 1)
-            {
+            CalculateMillions(ref toDo, resultParts);
+            CalculateThousands(ref toDo, resultParts);
+            return ConvertInternal(toDo, resultParts, GetUnit(value));
+        }
 
-                var milions = Math.DivRem(toDo, 1000000, out toDo);
-                resultParts.Add(new MillionConverter().Convert(milions));
-            }
-            if (toDo > 1000 - 1)
-            {
-
-                var thousands = Math.DivRem(toDo, 1000, out toDo);
-                resultParts.Add(new ThousandConverter().Convert(thousands));
-            }
-            if (toDo > 100 - 1)
-            {
-                var hundreds = Math.DivRem(toDo, 100, out toDo);
-                resultParts.Add($"{Dictionary[hundreds]} hundred");
-            }
-            if (toDo > 20 - 1)
-            {
-                var tempParts = new List<string>();
-                int units;
-                var tens = Math.DivRem(toDo, 10, out units);
-                if (Dictionary.ContainsKey(tens * 10))
-                {
-                    tempParts.Add(Dictionary[tens * 10]);
-                }
-                else
-                {
-                    tempParts.Add(Dictionary[tens]+"ty");
-                }
-                tempParts.Add(Dictionary[units]);
-                resultParts.Add(Join("-", tempParts));
-                toDo = 0;
-            }
-            if (toDo>10)
+        private string ConvertInternal(int toDo, List<string> resultParts, string unit)
+        {
+            CalculateHundreds(ref toDo, resultParts);
+            CalculateTens(ref toDo, resultParts);
+            if (toDo > 10)
             {
                 if (Dictionary.ContainsKey(toDo))
                 {
@@ -157,14 +114,61 @@ namespace Numbers.Tests
             {
                 resultParts.Add(Dictionary[toDo]);
             }
-            
 
-            return ReturnResult(value, resultParts);
+
+            return ReturnResult(unit, resultParts);
         }
 
-        private string ReturnResult(int value, List<string> resultParts)
+        private void CalculateTens(ref int toDo, List<string> resultParts)
         {
-            var unit = GetUnit(value);
+            if (toDo > 20 - 1)
+            {
+                var tempParts = new List<string>();
+                int units;
+                var tens = Math.DivRem(toDo, 10, out units);
+                if (Dictionary.ContainsKey(tens*10))
+                {
+                    tempParts.Add(Dictionary[tens*10]);
+                }
+                else
+                {
+                    tempParts.Add(Dictionary[tens] + "ty");
+                }
+                tempParts.Add(Dictionary[units]);
+                resultParts.Add(Join("-", tempParts));
+                toDo = 0;
+            }
+        }
+
+        private void CalculateHundreds(ref int toDo, List<string> resultParts)
+        {
+            if (toDo > 100 - 1)
+            {
+                var hundreds = Math.DivRem(toDo, 100, out toDo);
+               ConvertInternal(hundreds, resultParts, "hundred");
+            }
+        }
+
+        private void CalculateThousands(ref int toDo, List<string> resultParts)
+        {
+            if (toDo > 1000 - 1)
+            {
+                var thousands = Math.DivRem(toDo, 1000, out toDo);
+                ConvertInternal(thousands, resultParts, "thousand");
+            }
+        }
+
+        private void CalculateMillions(ref int toDo, List<string> resultParts)
+        {
+            if (toDo > 1000000 - 1)
+            {
+                var milions = Math.DivRem(toDo, 1000000, out toDo);
+                ConvertInternal(milions, resultParts, "million");
+            }
+        }
+
+        private string ReturnResult(string unit, List<string> resultParts)
+        {
             resultParts.Add(unit);
             return Join(" ", resultParts);
         }
