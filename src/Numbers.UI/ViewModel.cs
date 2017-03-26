@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -8,42 +7,40 @@ namespace Numbers.UI
 {
     public class ViewModel : INotifyPropertyChanged
     {
-        private readonly IModel model;
-        private string userInput;
-        private string result;
+        private readonly IModel _model;
         private string _error;
+        private string _result;
+        private string _userInput;
 
 
         public ViewModel(IModel model)
         {
-            this.model = model;
-            ConvertCommand = new RelayCommand(p=>true, async p=> await Convert());
-
+            _model = model;
+            ConvertCommand = new RelayCommand(p => true, async p => await Convert());
         }
 
         public ICommand ConvertCommand { get; set; }
 
         public string UserInput
         {
-            get { return userInput; }
+            get { return _userInput; }
             set
             {
-                if (value == userInput) return;
+                if (value == _userInput) return;
 
-                userInput = value;
+                _userInput = value;
                 OnPropertyChanged(nameof(UserInput));
             }
-
         }
 
         public string Result
         {
-            get { return result; }
+            get { return _result; }
             set
             {
-                if (value == result) return;
+                if (value == _result) return;
 
-                result = value;
+                _result = value;
                 OnPropertyChanged(nameof(Result));
             }
         }
@@ -53,7 +50,7 @@ namespace Numbers.UI
             get { return _error; }
             set
             {
-                if(value == _error) return;
+                if (value == _error) return;
                 _error = value;
                 OnPropertyChanged(nameof(Error));
             }
@@ -63,7 +60,7 @@ namespace Numbers.UI
         {
             try
             {
-                var response = await model.Convert(userInput);
+                var response = await _model.Convert(_userInput);
                 Result = response.Words;
                 Error = response.Error;
             }
@@ -74,16 +71,14 @@ namespace Numbers.UI
         }
 
         #region INotifyPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
         #endregion
-
-
-
     }
 }

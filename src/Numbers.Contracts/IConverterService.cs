@@ -3,7 +3,7 @@
 namespace Numbers.Contracts
 {
     [ServiceContract]
-    public interface IConverter
+    public interface IConverterService
     {
         [OperationContract]
         ConversionResult Convert(string input);

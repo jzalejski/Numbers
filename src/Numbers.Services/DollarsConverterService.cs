@@ -2,7 +2,7 @@
 
 namespace Numbers.Services
 {
-    public class DollarsConverterService : IConverter
+    public class DollarsConverterService : IConverterService
     {
         private readonly INumbersConverter _converter;
 
@@ -23,7 +23,6 @@ namespace Numbers.Services
             }
             catch (InputInvalidFormatExcetpion e)
             {
-
                 return new ConversionResult
                 {
                     Error = e.Message

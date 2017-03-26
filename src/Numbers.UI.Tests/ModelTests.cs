@@ -10,7 +10,7 @@ namespace Numbers.UI.Tests
         [Test]
         public void ShouldCallConverter()
         {
-            var mock = MockRepository.GenerateMock<IConverter>();
+            var mock = MockRepository.GenerateMock<IConverterService>();
             var model = new Model(mock);
             var expectedResult = new ConversionResult();
             mock.Stub(p => p.Convert(Arg<string>.Is.Anything)).Return(expectedResult);

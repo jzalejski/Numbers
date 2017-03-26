@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="ConversionResult.cs" />
     <Compile Include="ConverterClient.cs" />
-    <Compile Include="IConverter.cs" />
+    <Compile Include="IConverterService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

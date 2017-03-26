@@ -14,7 +14,7 @@ namespace Numbers
             {
                 cents = $" and {new CentsConverter().Convert(centsToDo)}";
             }
-            return $"{dollars}{cents}"; 
+            return $"{dollars}{cents}";
         }
 
         private void ParseInput(string input, out int dollars, out int cents)
@@ -53,7 +53,6 @@ namespace Numbers
                 {
                     throw new InputInvalidFormatExcetpion(input);
                 }
-
             }
             else if (parts.Length > 2)
             {

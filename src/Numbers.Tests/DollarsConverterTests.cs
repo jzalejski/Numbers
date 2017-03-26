@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Numbers.Tests
 {
@@ -17,7 +16,9 @@ namespace Numbers.Tests
         [TestCase("16", "sixteen dollars")]
         [TestCase("61", "sixty-one dollars")]
         [TestCase("45 100", "forty-five thousand one hundred dollars")]
-        [TestCase("999 999 999,99", "nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine dollars and ninety-nine cents")]
+        [TestCase("999 999 999,99",
+            "nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine dollars and ninety-nine cents"
+            )]
         [TestCase("16 000", "sixteen thousand dollars")]
         [TestCase("16 000 000", "sixteen million dollars")]
         [TestCase("567,05", "five hundred sixty-seven dollars and five cents")]
@@ -38,14 +39,11 @@ namespace Numbers.Tests
         [TestCase("-1")]
         [TestCase("1,-1")]
         [TestCase(null)]
-        public void ShouldThrowExceptionWithExpectedMessageIdStringIsNotValied(string input)
+        public void ShouldThrowExceptionWithExpectedMessageIfInputIsNotValid(string input)
         {
             var dl = new DollarsWithCentsConverter();
             var e = Assert.Throws<InputInvalidFormatExcetpion>(() => dl.Convert(input));
             Assert.That(e.Message, Is.EqualTo($"{input} is not valid input."));
-            
         }
     }
-
-    
 }

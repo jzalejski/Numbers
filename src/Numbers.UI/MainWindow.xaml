@@ -8,10 +8,10 @@
         Title="MainWindow" Height="350" Width="525">
     <StackPanel HorizontalAlignment="Left" Margin="5">
         <StackPanel Orientation="Horizontal">
-            <TextBox Text="{Binding UserInput}" Width="150"></TextBox>
+            <TextBox Text="{Binding UserInput}" Width="150" />
             <Button Command="{Binding ConvertCommand}">Parse!</Button>
         </StackPanel>
-        <TextBlock Text="{Binding Result}" TextWrapping="Wrap" Width="150"></TextBlock>
-        <TextBlock Text="{Binding Error}" Foreground="Red" TextWrapping="Wrap" Width="150"></TextBlock>
+        <TextBlock Text="{Binding Result}" TextWrapping="Wrap" Width="150" />
+        <TextBlock Text="{Binding Error}" Foreground="Red" TextWrapping="Wrap" Width="150" />
     </StackPanel>
 </Window>

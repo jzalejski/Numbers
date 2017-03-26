@@ -7,8 +7,8 @@ namespace Numbers.Services
     {
         public override void Load()
         {
-            this.Bind<IConverter>().To<DollarsConverterService>();
-            this.Bind<INumbersConverter>().To<DollarsWithCentsConverter>();
+            Bind<IConverterService>().To<DollarsConverterService>();
+            Bind<INumbersConverter>().To<DollarsWithCentsConverter>();
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Numbers.Contracts
 {
-    public class ConverterClient : ClientBase<IConverter>, IConverter
+    public class ConverterClient : ClientBase<IConverterService>, IConverterService
     {
         public ConversionResult Convert(string input)
         {

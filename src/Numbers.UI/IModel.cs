@@ -10,16 +10,16 @@ namespace Numbers.UI
 
     public class Model : IModel
     {
-        private readonly IConverter _converter;
+        private readonly IConverterService _converter;
 
-        public Model(IConverter converter)
+        public Model(IConverterService converter)
         {
             _converter = converter;
         }
 
         public async Task<ConversionResult> Convert(string userInput)
         {
-            return await Task.Run(() =>_converter.Convert(userInput));
+            return await Task.Run(() => _converter.Convert(userInput));
         }
     }
 }

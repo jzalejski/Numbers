@@ -5,13 +5,13 @@ namespace Numbers.UI
 {
     public class RelayCommand : ICommand
     {
-        private Predicate<object> _canExecute;
-        private Action<object> _execute;
+        private readonly Predicate<object> _canExecute;
+        private readonly Action<object> _execute;
 
         public RelayCommand(Predicate<object> canExecute, Action<object> execute)
         {
-            this._canExecute = canExecute;
-            this._execute = execute;
+            _canExecute = canExecute;
+            _execute = execute;
         }
 
         public event EventHandler CanExecuteChanged

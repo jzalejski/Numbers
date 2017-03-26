@@ -5,7 +5,7 @@ using Numbers.Contracts;
 namespace Numbers.UI
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    ///     Interaction logic for App.xaml
     /// </summary>
     public partial class App
     {
@@ -21,9 +21,9 @@ namespace Numbers.UI
 
         private void ConfigureContainer()
         {
-            this._container = new StandardKernel();
+            _container = new StandardKernel();
             _container.Bind<IModel>().To<Model>();
-            _container.Bind<IConverter>().To<ConverterClient>();
+            _container.Bind<IConverterService>().To<ConverterClient>();
         }
 
         private void ComposeObjects()

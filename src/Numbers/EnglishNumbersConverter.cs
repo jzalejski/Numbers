@@ -7,9 +7,9 @@ namespace Numbers
     {
         protected readonly Dictionary<int, string> Dictionary = new Dictionary<int, string>
         {
-            {0, "zero" },
-            {1, "one" },
-            {2, "two" },
+            {0, "zero"},
+            {1, "one"},
+            {2, "two"},
             {3, "three"},
             {4, "four"},
             {5, "five"},
@@ -23,12 +23,11 @@ namespace Numbers
             {13, "thirteen"},
             {15, "fifteen"},
             {18, "eighteen"},
-            {20, "twenty" },
-            {30, "thirty" },
-            {40, "forty" },
-            {50, "fifty" },
-            {80, "eighty" },
-
+            {20, "twenty"},
+            {30, "thirty"},
+            {40, "forty"},
+            {50, "fifty"},
+            {80, "eighty"}
         };
 
         protected abstract string UnitName { get; }
@@ -62,7 +61,7 @@ namespace Numbers
                     resultParts.Add($"{Dictionary[toDo%10]}teen");
                 }
             }
-            else if(toDo > 0)
+            else if (toDo > 0)
             {
                 resultParts.Add(Dictionary[toDo]);
             }
@@ -97,7 +96,7 @@ namespace Numbers
 
         private void CalculateHundreds(ref int toDo, List<string> resultParts)
         {
-            if (toDo > 100-1)
+            if (toDo > 100 - 1)
             {
                 var hundreds = Math.DivRem(toDo, 100, out toDo);
                 ConvertInternal(hundreds, resultParts, "hundred");
@@ -125,12 +124,12 @@ namespace Numbers
         private string ReturnResult(string unit, List<string> resultParts)
         {
             resultParts.Add(unit);
-            return String.Join(" ", resultParts);
+            return string.Join(" ", resultParts);
         }
 
         protected virtual string GetUnit(int value)
         {
-            return value != 1? UnitName + "s" : UnitName;
+            return value != 1 ? UnitName + "s" : UnitName;
         }
     }
 }
