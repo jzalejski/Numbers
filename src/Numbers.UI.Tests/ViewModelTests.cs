@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Numbers.Contracts;
+using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Numbers.UI.Tests
@@ -39,9 +40,26 @@ namespace Numbers.UI.Tests
         }
 
         [Test]
+        public void ShouldNotifyOnErrorChanged()
+        {
+            var wasCalled = false;
+            var vm = new ViewModel(null);
+            string propertyName = null;
+            vm.PropertyChanged += (s, e) =>
+            {
+                wasCalled = true;
+                propertyName = e.PropertyName;
+            };
+            vm.Error = "test";
+            Assert.That(wasCalled);
+            Assert.That(propertyName, Is.EqualTo(nameof(vm.Error)));
+        }
+
+        [Test]
         public void ShouldCallConvertMethodFromModel()
         {
             var model = MockRepository.GenerateMock<IModel>();
+            model.Stub(p => p.Convert(Arg<string>.Is.Anything)).Return(new ConversionResult());
             var vm = new ViewModel(model);
             var testInput = "1231";
             vm.UserInput = testInput;
@@ -53,13 +71,34 @@ namespace Numbers.UI.Tests
         public void ShouldSetValueReturnedByModelToResult()
         {
             var model = MockRepository.GenerateMock<IModel>();
-            var result = "test result";
+            var testResult = "test result";
+            var result = new ConversionResult
+            {
+                Words = testResult
+            };
             model.Stub(p => p.Convert(Arg<string>.Is.Anything)).Return(result);
             var vm = new ViewModel(model);
             var testInput = "1231";
             vm.UserInput = testInput;
             vm.ConvertCommand.Execute(null);
-            Assert.That(vm.Result, Is.EqualTo(result));
+            Assert.That(vm.Result, Is.EqualTo(testResult));
+        }
+
+        [Test]
+        public void ShouldSetErrorIfParsingFailed()
+        {
+            var model = MockRepository.GenerateMock<IModel>();
+            var testError = "test error";
+            var result = new ConversionResult
+            {
+                Error = testError
+            };
+            model.Stub(p => p.Convert(Arg<string>.Is.Anything)).Return(result);
+            var vm = new ViewModel(model);
+            var testInput = "1231";
+            vm.UserInput = testInput;
+            vm.ConvertCommand.Execute(null);
+            Assert.That(vm.Error, Is.EqualTo(testError));
         }
     }
 }

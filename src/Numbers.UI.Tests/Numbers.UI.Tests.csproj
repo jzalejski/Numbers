@@ -55,6 +55,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Numbers.Contracts\Numbers.Contracts.csproj">
+      <Project>{6cb0f8e5-4cd5-4678-9071-242edc425a41}</Project>
+      <Name>Numbers.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Numbers.UI\Numbers.UI.csproj">
       <Project>{3E40DA6E-852D-472A-8639-976D791DCDFA}</Project>
       <Name>Numbers.UI</Name>

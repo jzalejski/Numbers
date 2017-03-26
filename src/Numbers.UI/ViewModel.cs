@@ -8,7 +8,8 @@ namespace Numbers.UI
         private readonly IModel model;
         private string userInput;
         private string result;
-        
+        private string _error;
+
 
         public ViewModel(IModel model)
         {
@@ -44,9 +45,22 @@ namespace Numbers.UI
             }
         }
 
+        public string Error
+        {
+            get { return _error; }
+            set
+            {
+                if(value == _error) return;
+                _error = value;
+                OnPropertyChanged(nameof(Error));
+            }
+        }
+
         private void Convert()
         {
-            Result = model.Convert(userInput);
+            var response = model.Convert(userInput);
+            Result = response.Words;
+            Error = response.Error;
         }
 
         #region INotifyPropertyChanged

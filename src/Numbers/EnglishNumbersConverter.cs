@@ -86,8 +86,11 @@ namespace Numbers
                 {
                     tempParts.Add(Dictionary[tens] + "ty");
                 }
-                tempParts.Add(Dictionary[units]);
-                resultParts.Add(String.Join("-", tempParts));
+                if (units > 0)
+                {
+                    tempParts.Add(Dictionary[units]);
+                }
+                resultParts.Add(string.Join("-", tempParts));
                 toDo = 0;
             }
         }

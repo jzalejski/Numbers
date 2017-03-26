@@ -6,17 +6,12 @@
         xmlns:local="clr-namespace:Numbers.UI"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding UserInput}"></TextBox>
-        <Button Grid.Row="0" Grid.Column="1" Command="{Binding ConvertCommand}"></Button>
-        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Result}"></TextBlock>
-    </Grid>
+    <StackPanel HorizontalAlignment="Left" Margin="5">
+        <StackPanel Orientation="Horizontal">
+            <TextBox Text="{Binding UserInput}" Width="150"></TextBox>
+            <Button Command="{Binding ConvertCommand}">Parse!</Button>
+        </StackPanel>
+        <TextBlock Text="{Binding Result}" TextWrapping="Wrap" Width="150"></TextBlock>
+        <TextBlock Text="{Binding Error}" Foreground="Red" TextWrapping="Wrap" Width="150"></TextBlock>
+    </StackPanel>
 </Window>

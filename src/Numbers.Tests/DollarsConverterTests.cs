@@ -21,6 +21,7 @@ namespace Numbers.Tests
         [TestCase("16 000", "sixteen thousand dollars")]
         [TestCase("16 000 000", "sixteen million dollars")]
         [TestCase("567,05", "five hundred sixty-seven dollars and five cents")]
+        [TestCase("90", "ninety dollars")]
         public void ShouldConvertDollarsToWordAsExpected(string input, string expectedOutput)
         {
             var dl = new DollarsWithCentsConverter();
@@ -39,7 +40,8 @@ namespace Numbers.Tests
         public void ShouldThrowExceptionWithExpectedMessageIdStringIsNotValied(string input)
         {
             var dl = new DollarsWithCentsConverter();
-            Assert.Throws<InputInvalidFormatExcetpion>(() => dl.Convert(input), $"Intput: ${input} is not valid format.");
+            var e = Assert.Throws<InputInvalidFormatExcetpion>(() => dl.Convert(input));
+            Assert.That(e.Message, Is.EqualTo($"Intput: {input} is not valid input."));
             
         }
     }
