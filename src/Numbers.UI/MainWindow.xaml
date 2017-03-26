@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numbers.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <StackPanel HorizontalAlignment="Left" Margin="5">
+        Title="MainWindow" Height="350" Width="400">
+    <StackPanel HorizontalAlignment="Left" Margin="20">
         <StackPanel Orientation="Horizontal">
             <TextBox Text="{Binding UserInput}" Width="150" />
-            <Button Command="{Binding ConvertCommand}">Parse!</Button>
+            <Button Command="{Binding ConvertCommand}"  Width="150">Parse!</Button>
         </StackPanel>
-        <TextBlock Text="{Binding Result}" TextWrapping="Wrap" Width="150" />
-        <TextBlock Text="{Binding Error}" Foreground="Red" TextWrapping="Wrap" Width="150" />
+        <TextBlock  Text="{Binding Result}" TextWrapping="Wrap" Width="320" />
+        <TextBlock Text="{Binding Error}" Foreground="Red" TextWrapping="Wrap" Width="320" />
     </StackPanel>
 </Window>
