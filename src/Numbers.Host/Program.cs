@@ -23,21 +23,18 @@ namespace Numbers.Host
 
     public class Bootstrapper
     {
-        private NinjectSelfHostBootstrapper selfHost;
+        private NinjectSelfHostBootstrapper _selfHost;
 
         private void StartNinjectSelfHost()
         {
             var someWcfService =
                 NinjectWcfConfiguration.Create<DollarsConverterService, NinjectServiceSelfHostFactory>();
-            var webApiConfiguration = new HttpSelfHostConfiguration("http://localhost:8080");
-            webApiConfiguration.Routes.MapHttpRoute("DefaultApi", "{controller}/{id}",
-                new {id = RouteParameter.Optional, controller = "values"});
-
-            selfHost = new NinjectSelfHostBootstrapper(
+            var webApiConfiguration = new HttpSelfHostConfiguration("http://locahost:8081");
+            _selfHost = new NinjectSelfHostBootstrapper(
                 CreateKernel,
                 someWcfService,
                 webApiConfiguration);
-            selfHost.Start();
+            _selfHost.Start();
         }
 
         private static StandardKernel CreateKernel()
