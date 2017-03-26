@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace Numbers.Tests
 {
@@ -26,5 +27,22 @@ namespace Numbers.Tests
             var actual = dl.Convert(input);
             Assert.That(actual, Is.EqualTo(expectedOutput));
         }
+
+        [TestCase("not numbers")]
+        [TestCase("13,sadfsad")]
+        [TestCase("asf,12")]
+        [TestCase("123,122")]
+        [TestCase("123,12, 5214")]
+        [TestCase("1 000 000 000")]
+        [TestCase("-1")]
+        [TestCase("1,-1")]
+        public void ShouldThrowExceptionWithExpectedMessageIdStringIsNotValied(string input)
+        {
+            var dl = new DollarsWithCentsConverter();
+            Assert.Throws<InputInvalidFormatExcetpion>(() => dl.Convert(input), $"Intput: ${input} is not valid format.");
+            
+        }
     }
+
+    
 }
