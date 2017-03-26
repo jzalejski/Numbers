@@ -1,10 +1,12 @@
-﻿using Numbers.Contracts;
+﻿using log4net;
+using Numbers.Contracts;
 
 namespace Numbers.Services
 {
     public class DollarsConverterService : IConverterService
     {
         private readonly INumbersConverter _converter;
+        private static ILog Log = LogManager.GetLogger(typeof (DollarsConverterService));
 
         public DollarsConverterService(INumbersConverter converter)
         {
@@ -15,7 +17,9 @@ namespace Numbers.Services
         {
             try
             {
+                Log.Info($"Converting input: {input}.");
                 var result = _converter.Convert(input);
+                Log.Info($"Input: {input} converted. Result: {result}.");
                 return new ConversionResult
                 {
                     Words = result
@@ -23,6 +27,7 @@ namespace Numbers.Services
             }
             catch (InputInvalidFormatExcetpion e)
             {
+                Log.Warn($"Converting input: {input} failed. Error:", e);
                 return new ConversionResult
                 {
                     Error = e.Message
