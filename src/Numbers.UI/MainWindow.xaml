@@ -16,7 +16,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding UserInput}"></TextBox>
-        <Button Grid.Row="0" Grid.Column="1"></Button>
-        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></TextBlock>
+        <Button Grid.Row="0" Grid.Column="1" Command="{Binding ConvertCommand}"></Button>
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Result}"></TextBlock>
     </Grid>
 </Window>

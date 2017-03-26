@@ -40,7 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CentsConverter.cs" />
     <Compile Include="DollarsConverter.cs" />
+    <Compile Include="DollarsWithCentsConverter.cs" />
+    <Compile Include="EnglishNumbersConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

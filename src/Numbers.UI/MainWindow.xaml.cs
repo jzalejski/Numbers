@@ -23,7 +23,7 @@ namespace Numbers.UI
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ViewModel(null);
+            DataContext = new ViewModel(new Model());
         }
     }
 }
