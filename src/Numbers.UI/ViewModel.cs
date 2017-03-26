@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.ServiceModel;
 using System.Windows.Input;
 
 namespace Numbers.UI
@@ -58,9 +60,16 @@ namespace Numbers.UI
 
         private void Convert()
         {
-            var response = model.Convert(userInput);
-            Result = response.Words;
-            Error = response.Error;
+            try
+            {
+                var response = model.Convert(userInput);
+                Result = response.Words;
+                Error = response.Error;
+            }
+            catch (CommunicationException e)
+            {
+                Error = e.Message;
+            }
         }
 
         #region INotifyPropertyChanged

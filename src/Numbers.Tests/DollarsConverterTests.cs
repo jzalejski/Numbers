@@ -41,7 +41,7 @@ namespace Numbers.Tests
         {
             var dl = new DollarsWithCentsConverter();
             var e = Assert.Throws<InputInvalidFormatExcetpion>(() => dl.Convert(input));
-            Assert.That(e.Message, Is.EqualTo($"Intput: {input} is not valid input."));
+            Assert.That(e.Message, Is.EqualTo($"{input} is not valid input."));
             
         }
     }

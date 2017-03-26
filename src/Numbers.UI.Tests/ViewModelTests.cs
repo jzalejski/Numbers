@@ -1,6 +1,7 @@
 ﻿using Numbers.Contracts;
 using NUnit.Framework;
 using Rhino.Mocks;
+using System.ServiceModel;
 
 namespace Numbers.UI.Tests
 {
@@ -99,6 +100,20 @@ namespace Numbers.UI.Tests
             vm.UserInput = testInput;
             vm.ConvertCommand.Execute(null);
             Assert.That(vm.Error, Is.EqualTo(testError));
+        }
+
+        [Test]
+        public void ShouldSetErrorIfCommunicationError()
+        {
+            var model = MockRepository.GenerateMock<IModel>();
+            var testError = "timeout error";
+            model.Stub(p => p.Convert(Arg<string>.Is.Anything)).Throw(new CommunicationException(testError));
+            var vm = new ViewModel(model);
+            var testInput = "1231";
+            vm.UserInput = testInput;
+            vm.ConvertCommand.Execute(null);
+            Assert.That(vm.Error, Is.EqualTo(testError));
+            
         }
     }
 }
