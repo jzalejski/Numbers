@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Numbers.UI
@@ -16,7 +17,7 @@ namespace Numbers.UI
         public ViewModel(IModel model)
         {
             this.model = model;
-            ConvertCommand = new RelayCommand(p=>true, p=>Convert());
+            ConvertCommand = new RelayCommand(p=>true, async p=> await Convert());
 
         }
 
@@ -58,11 +59,11 @@ namespace Numbers.UI
             }
         }
 
-        private void Convert()
+        private async Task Convert()
         {
             try
             {
-                var response = model.Convert(userInput);
+                var response = await model.Convert(userInput);
                 Result = response.Words;
                 Error = response.Error;
             }

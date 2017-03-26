@@ -37,6 +37,7 @@ namespace Numbers.Tests
         [TestCase("1 000 000 000")]
         [TestCase("-1")]
         [TestCase("1,-1")]
+        [TestCase(null)]
         public void ShouldThrowExceptionWithExpectedMessageIdStringIsNotValied(string input)
         {
             var dl = new DollarsWithCentsConverter();

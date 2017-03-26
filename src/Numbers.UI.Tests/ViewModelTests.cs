@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using System.ServiceModel;
+using System.Threading.Tasks;
 
 namespace Numbers.UI.Tests
 {
@@ -60,7 +61,8 @@ namespace Numbers.UI.Tests
         public void ShouldCallConvertMethodFromModel()
         {
             var model = MockRepository.GenerateMock<IModel>();
-            model.Stub(p => p.Convert(Arg<string>.Is.Anything)).Return(new ConversionResult());
+            var result = Task.FromResult(new ConversionResult());
+            model.Stub(p => p.Convert(Arg<string>.Is.Anything)).Return(result);
             var vm = new ViewModel(model);
             var testInput = "1231";
             vm.UserInput = testInput;
@@ -73,10 +75,10 @@ namespace Numbers.UI.Tests
         {
             var model = MockRepository.GenerateMock<IModel>();
             var testResult = "test result";
-            var result = new ConversionResult
+            var result = Task.FromResult(new ConversionResult
             {
                 Words = testResult
-            };
+            });
             model.Stub(p => p.Convert(Arg<string>.Is.Anything)).Return(result);
             var vm = new ViewModel(model);
             var testInput = "1231";
@@ -90,10 +92,10 @@ namespace Numbers.UI.Tests
         {
             var model = MockRepository.GenerateMock<IModel>();
             var testError = "test error";
-            var result = new ConversionResult
+            var result = Task.FromResult(new ConversionResult
             {
                 Error = testError
-            };
+            });
             model.Stub(p => p.Convert(Arg<string>.Is.Anything)).Return(result);
             var vm = new ViewModel(model);
             var testInput = "1231";

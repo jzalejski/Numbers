@@ -1,17 +1,25 @@
-﻿using Numbers.Contracts;
+﻿using System.Threading.Tasks;
+using Numbers.Contracts;
 
 namespace Numbers.UI
 {
     public interface IModel
     {
-        ConversionResult Convert(string userInput);
+        Task<ConversionResult> Convert(string userInput);
     }
 
-    class Model : IModel
+    public class Model : IModel
     {
-        public ConversionResult Convert(string userInput)
+        private readonly IConverter _converter;
+
+        public Model(IConverter converter)
         {
-            return new ConverterClient().Convert(userInput);
+            _converter = converter;
+        }
+
+        public async Task<ConversionResult> Convert(string userInput)
+        {
+            return await Task.Run(() =>_converter.Convert(userInput));
         }
     }
 }
